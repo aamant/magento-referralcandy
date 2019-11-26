@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var Aamant_ReferralCandy_Block_JsTag $this
+ * @var Mage_Sales_Model_Order $order
+ */
+?>
+<?php if ($this->isEnable() && $order = $this->getOrder()): ?>
+    <div
+            id="<?= $this->getConfig('type') ?>"
+            data-app-id="<?= $this->getConfig('app_id') ?>"
+            data-fname="<?= $order->getCustomerFirstname() ?>"
+            data-lname="<?= $order->getCustomerLastname() ?>"
+            data-email="<?= $order->getCustomerEmail() ?>"
+            data-amount="<?= $order->getTotalPaid() ?>"
+            data-currency="EUR"
+            data-timestamp="<?= Mage::getModel('core/date')->timestamp($order->getCreatedAt()) ?>"
+            data-external-reference-id="<?= $order->getIncrementId() ?>"
+            data-signature="<?= $this->getSignature($order) ?>"
+    ></div>
+    <?php if ($this->getConfig('type') == 'refcandy-mint'): ?>
+        <script>(function(e){var t,n,r,i,s,o,u,a,f,l,c,h,p,d,v;z="script";l="refcandy-purchase-js";c="refcandy-mint";p="go.referralcandy.com/purchase/";t="data-app-id";r={email:"a",fname:"b",lname:"c",amount:"d",currency:"e","accepts-marketing":"f",timestamp:"g","referral-code":"h",locale:"i","external-reference-id":"k",signature:"ab"};i=e.getElementsByTagName(z)[0];s=function(e,t){if(t){return""+e+"="+encodeURIComponent(t)}else{return""}};d=function(e){return""+p+h.getAttribute(t)+".js?aa=75&"};if(!e.getElementById(l)){h=e.getElementById(c);if(h){o=e.createElement(z);o.id=l;a=function(){var e;e=[];for(n in r){u=r[n];v=h.getAttribute("data-"+n);e.push(s(u,v))}return e}();o.src="//"+d(h.getAttribute(t))+a.join("&");return i.parentNode.insertBefore(o,i)}}})(document);</script>
+    <?php else: ?>
+        <script>(function(e){var t,n,r,i,s,o,u,a,f,l,c,h,p,d,v;z="script";l="refcandy-purchase-js";c="refcandy-popsicle";p="go.referralcandy.com/purchase/";t="data-app-id";r={email:"a",fname:"b",lname:"c",amount:"d",currency:"e","accepts-marketing":"f",timestamp:"g","referral-code":"h",locale:"i","external-reference-id":"k",signature:"ab"};i=e.getElementsByTagName(z)[0];s=function(e,t){if(t){return""+e+"="+encodeURIComponent(t)}else{return""}};d=function(e){return""+p+h.getAttribute(t)+".js?lightbox=1&aa=75&"};if(!e.getElementById(l)){h=e.getElementById(c);if(h){o=e.createElement(z);o.id=l;a=function(){var e;e=[];for(n in r){u=r[n];v=h.getAttribute("data-"+n);e.push(s(u,v))}return e}();o.src="//"+d(h.getAttribute(t))+a.join("&");return i.parentNode.insertBefore(o,i)}}})(document);</script>
+    <?php endif; ?>
+<?php endif; ?>
